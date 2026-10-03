@@ -53,6 +53,7 @@ import {
   Users,
   Utensils,
   Volume2,
+  Wifi,
   X,
   Zap,
 } from "lucide-react";
@@ -469,11 +470,11 @@ function Modal({
 }
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-    const [category, setCategory] = useState("Todos");
+  const [category, setCategory] = useState("Todos");
   const [search, setSearch] = useState("");
   const [mobileMenu, setMobileMenu] = useState(false);
   const [toast, setToast] = useState("");
-    
+
 
   const {
     favorites, setFavorites,
@@ -487,7 +488,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     profile, setProfile,
     modal, setModal, selectedShop, setSelectedShop,
     equivalence, addMovement
-  } = useStore();          const [extraShops, setExtraShops] = useSaved<Shop[]>(
+  } = useStore(); const [extraShops, setExtraShops] = useSaved<Shop[]>(
     "paseo-extra-shops-v1",
     [],
   );
@@ -503,26 +504,26 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const [chatLanguage, setChatLanguage] = useState("Español");
   const [slot, setSlot] = useState("Hoy · 17:00 a 18:00");
   const [payment, setPayment] = useState("Pago al retirar");
-    const [onlyFavorites, setOnlyFavorites] = useState(false);
+  const [onlyFavorites, setOnlyFavorites] = useState(false);
   const [mapView, setMapView] = useState(false);
   const [floor, setFloor] = useState("Todos los pisos");
   const [merchantShop, setMerchantShop] = useState("cayenna");
-  const [validation, setValidation] = useState("");  const [activityTab, setActivityTab] = useState("Pedidos");
+  const [validation, setValidation] = useState(""); const [activityTab, setActivityTab] = useState("Pedidos");
   const [notificationsRead, setNotificationsRead] = useSaved(
     "paseo-read-v1",
     false,
   );
 
-  
-const navMap: Record<string, string> = {
-  "Inicio": "/",
-  "Explorar el Paseo": "/explorar",
-  "PaseoYa": "/paseoya",
-  "Paseo Points": "/puntos",
-  "Jarvis Paseo": "/jarvis",
-  "Eventos y experiencias": "/eventos",
-  "Mi actividad": "/actividad",
-};
+
+  const navMap: Record<string, string> = {
+    "Inicio": "/",
+    "Explorar el Paseo": "/explorar",
+    "PaseoYa": "/paseoya",
+    "Paseo Points": "/puntos",
+    "Jarvis Paseo": "/jarvis",
+    "Eventos y experiencias": "/eventos",
+    "Mi actividad": "/actividad",
+  };
 
   const allShops = [...shops, ...extraShops];
   const shopOf = (id: string) => allShops.find((s) => s.id === id) || shops[0];
@@ -534,7 +535,7 @@ const navMap: Record<string, string> = {
     return () => clearTimeout(timer);
   }, [toast]);
 
-  
+
   const router = useRouter();
   const go = (path: string) => {
     setMobileMenu(false);
@@ -562,7 +563,7 @@ const navMap: Record<string, string> = {
     0,
   );
 
-  
+
   const checkout = () => {
     if (!cartItems.length) return;
     if (cartItems.some((i) => i.quantity > i.product.stock))
@@ -699,9 +700,8 @@ const navMap: Record<string, string> = {
           En el Paseo
         </span>
         <Button
-          className={`favorite icon-button ${
-            favorites.includes(s.id) ? "is-favorite" : ""
-          }`}
+          className={`favorite icon-button ${favorites.includes(s.id) ? "is-favorite" : ""
+            }`}
           aria-label={`Guardar ${s.name}`}
           onClick={() => toggleFavorite(s.id)}
         >
@@ -752,9 +752,8 @@ const navMap: Record<string, string> = {
           {p.stock > 0 ? `${p.stock} disponibles` : "Agotado"}
         </span>
         <Button
-          className={`favorite icon-button ${
-            favorites.includes(p.id) ? "is-favorite" : ""
-          }`}
+          className={`favorite icon-button ${favorites.includes(p.id) ? "is-favorite" : ""
+            }`}
           aria-label={`Guardar ${p.name}`}
           onClick={() => toggleFavorite(p.id)}
         >
@@ -860,21 +859,7 @@ const navMap: Record<string, string> = {
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="sidebar-jarvis">
-            <span className="jarvis-mini">
-              <Sparkles size={20} />
-            </span>
-            <strong>¿Qué hacemos hoy?</strong>
-            <p>
-              Jarvis te ayuda a encontrar
-              <br />
-              tu próximo plan.
-            </p>
-            <Button onClick={() => go("/jarvis")}>
-              Hablar con Jarvis
-              <ArrowUpRight size={15} />
-            </Button>
-          </div>
+
           <div className="role-nav">
             <Button
               className={usePathname() === "/comercio" ? "selected" : ""}
@@ -888,8 +873,16 @@ const navMap: Record<string, string> = {
               className={usePathname() === "/admin" ? "selected" : ""}
               onClick={() => go("/admin")}
             >
-              <ShieldCheck size={16} />
+              <Settings2 size={16} />
               Administración
+              <ArrowUpRight size={13} />
+            </Button>
+            <Button
+              className={usePathname().startsWith("/seguridad") ? "selected" : ""}
+              onClick={() => go("/seguridad")}
+            >
+              <ShieldCheck size={16} />
+              Seguridad
               <ArrowUpRight size={13} />
             </Button>
           </div>
@@ -922,11 +915,15 @@ const navMap: Record<string, string> = {
             <strong>{Object.keys(navMap).find(k => navMap[k] === usePathname()) || "Administración"}</strong>
           </div>
           <div className="top-actions">
-            <span className="location">
-              <MapPin size={15} />
-              Cochabamba, Bolivia
-            </span>
+
             <div className="top-divider" />
+
+            <div className="ai-connected-pill">
+              <Wifi size={14} />
+              <span>IA Conectada</span>
+              <div className="ai-dot" />
+            </div>
+
             <Button
               className="icon-button notification-button"
               aria-label="Notificaciones"
