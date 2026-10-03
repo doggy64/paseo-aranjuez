@@ -1,0 +1,87 @@
+import { Store, Utensils, ShoppingBag, Zap, Gift, Ticket, BriefcaseBusiness } from "lucide-react";
+import { Shop } from "../types";
+
+export const categories = [
+  { name: "Todos", icon: Store },
+  { name: "Gastronomía", icon: Utensils },
+  { name: "Moda", icon: ShoppingBag },
+  { name: "Tecnología", icon: Zap },
+  { name: "Regalos", icon: Gift },
+  { name: "Entretenimiento", icon: Ticket },
+  { name: "Oficinas y servicios", icon: BriefcaseBusiness },
+];
+
+export const shops: Shop[] = [
+  {
+    id: "cayenna",
+    name: "Cayenna Bistro Café",
+    category: "Gastronomía",
+    floor: "Cuarto piso",
+    image: "/assets/cayenna.jpeg",
+    rating: "4.9",
+    description: "Una pausa deliciosa. Café, platos de autor y buenos momentos en la terraza gourmet.",
+  },
+  {
+    id: "puma",
+    name: "PUMA",
+    category: "Moda",
+    floor: "Planta baja",
+    image: "/assets/puma.JPG",
+    rating: "4.8",
+    description: "Encuentra tu siguiente movimiento con moda deportiva, calzado y accesorios.",
+  },
+  {
+    id: "flowers",
+    name: "Flor de Amor",
+    category: "Regalos",
+    floor: "Planta baja",
+    image: "/assets/floristeria-flor-de-amor.webp",
+    rating: "4.9",
+    description: "Flores y detalles para convertir cualquier día en una ocasión especial.",
+  },
+  {
+    id: "apple",
+    name: "Apple Land",
+    category: "Tecnología",
+    floor: "Segundo piso",
+    image: "/assets/apple-land.webp",
+    rating: "4.8",
+    description: "Tecnología y accesorios para estar conectado con lo que más te importa.",
+  },
+  {
+    id: "cinnabon",
+    name: "Cinnabon",
+    category: "Gastronomía",
+    floor: "Planta baja",
+    image: "/assets/cinnabon.JPG",
+    rating: "4.7",
+    description: "Rollos de canela recién horneados y pequeños momentos de felicidad.",
+  },
+  {
+    id: "totto",
+    name: "Totto",
+    category: "Moda",
+    floor: "Segundo piso",
+    image: "/assets/totto.webp",
+    rating: "4.8",
+    description: "Mochilas y accesorios para acompañarte en todas tus aventuras.",
+  },
+  {
+    id: "burger",
+    name: "Bypass Burger",
+    category: "Gastronomía",
+    floor: "Tercer piso",
+    image: "/assets/bypass-burger.webp",
+    rating: "4.7",
+    description: "Hamburguesas y sabor en el mercado gastronómico.",
+  },
+  {
+    id: "games",
+    name: "Game Shop",
+    category: "Entretenimiento",
+    floor: "Segundo piso",
+    image: "/assets/game-shop.webp",
+    rating: "4.8",
+    description: "Juegos y accesorios para tu próxima aventura.",
+  },
+];
