@@ -1,0 +1,54 @@
+[
+  {
+    "id": "cam_acceso_principal",
+    "name": "Acceso Principal (Av. América)",
+    "zone": "Exterior / Entrada",
+    "brand": "Dahua IPC-HFW (Simulada)",
+    "rtspSource": "rtsp://localhost:8554/cam_acceso_principal",
+    "streamName": "cam_acceso_principal",
+    "resolution": "1280x720",
+    "fps": 25,
+    "type": "simulated",
+    "status": "online",
+    "createdAt": "2026-10-03T15:11:44.658Z"
+  },
+  {
+    "id": "cam_patio_comidas",
+    "name": "Patio de Comidas Nivel 2",
+    "zone": "Piso 2 - Gastronomía",
+    "brand": "Hikvision DS-2CD (Simulada)",
+    "rtspSource": "rtsp://localhost:8554/cam_patio_comidas",
+    "streamName": "cam_patio_comidas",
+    "resolution": "1280x720",
+    "fps": 25,
+    "type": "simulated",
+    "status": "online",
+    "createdAt": "2026-10-03T15:11:44.658Z"
+  },
+  {
+    "id": "cam_parqueo",
+    "name": "Parqueo Subterráneo E-01",
+    "zone": "Subsuelo 1 - Estacionamiento",
+    "brand": "Uniview UNV (Simulada)",
+    "rtspSource": "rtsp://localhost:8554/cam_parqueo",
+    "streamName": "cam_parqueo",
+    "resolution": "1280x720",
+    "fps": 25,
+    "type": "simulated",
+    "status": "online",
+    "createdAt": "2026-10-03T15:11:44.658Z"
+  },
+  {
+    "id": "cam_pasillo_central",
+    "name": "Pasillo Central & Tiendas",
+    "zone": "Piso 1 - Pasarela Comercial",
+    "brand": "TP-Link Tapo C310 (Simulada)",
+    "rtspSource": "rtsp://localhost:8554/cam_pasillo_central",
+    "streamName": "cam_pasillo_central",
+    "resolution": "1280x720",
+    "fps": 25,
+    "type": "simulated",
+    "status": "online",
+    "createdAt": "2026-10-03T15:11:44.658Z"
+  }
+]

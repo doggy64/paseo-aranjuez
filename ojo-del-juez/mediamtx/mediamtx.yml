@@ -1,0 +1,71 @@
+# ========================================================
+# OJO DEL JUEZ - MediaMTX Configuration
+# Centralizador Multimedia de Latencia Cero (WebRTC / WHEP)
+# ========================================================
+
+logLevel: info
+logDestinations: [stdout]
+
+# API REST de Control (puerto 9997)
+# Permite agregar, listar y eliminar camaras dinamicamente
+api: true
+apiAddress: :9997
+
+# Servidor RTSP (puerto 8554)
+# Ingesta de camaras IP / Celulares / NVR / OBS / FFmpeg
+rtsp: true
+rtspAddress: :8554
+
+# Servidor WebRTC WHEP (puerto 8889)
+# Distribucion de video con latencia ultra baja (< 200 ms)
+webrtc: true
+webrtcAddress: :8889
+webrtcEncryption: false
+webrtcAllowOrigins: ["*"]
+webrtcLocalUDPAddress: :8189
+webrtcIPsFromInterfaces: true
+webrtcHandshakeTimeout: 10s
+webrtcTrackGatherTimeout: 2s
+
+# Servidor HLS (puerto 8888)
+hls: true
+hlsAddress: :8888
+hlsAllowOrigins: ["*"]
+
+# Servidor RTMP (puerto 1935)
+rtmp: true
+rtmpAddress: :1935
+
+# Configuracion global de paths
+pathDefaults:
+  source: publisher
+  sourceOnDemand: false
+  rtspTransport: automatic
+  maxReaders: 0
+
+# ========================================================
+# Camaras Preconfiguradas para Prototipo (Paseo Aranjuez)
+# ========================================================
+paths:
+  # CAM 01: Acceso Principal
+  cam_acceso_principal:
+    runOnInit: ffmpeg -re -f lavfi -i "testsrc=size=1280x720:rate=25" -vf "drawtext=text='PASEO ARANJUEZ - CAM 01 | ACCESO PRINCIPAL':x=30:y=30:fontsize=26:fontcolor=yellow:box=1:boxcolor=black@0.7,drawtext=text='REC ● %{localtime\:%Y-%m-%d %H\\\\\:%M\\\\\:%S}':x=30:y=65:fontsize=22:fontcolor=red:box=1:boxcolor=black@0.7,drawgrid=width=100:height=100:thickness=1:color=white@0.08" -pix_fmt yuv420p -c:v libx264 -preset ultrafast -tune zerolatency -b:v 1200k -g 25 -f rtsp rtsp://localhost:8554/cam_acceso_principal
+    runOnInitRestart: true
+
+  # CAM 02: Patio de Comidas
+  cam_patio_comidas:
+    runOnInit: ffmpeg -re -f lavfi -i "smptebars=size=1280x720:rate=25" -vf "drawtext=text='PASEO ARANJUEZ - CAM 02 | PATIO DE COMIDAS':x=30:y=30:fontsize=26:fontcolor=cyan:box=1:boxcolor=black@0.7,drawtext=text='REC ● %{localtime\:%Y-%m-%d %H\\\\\:%M\\\\\:%S}':x=30:y=65:fontsize=22:fontcolor=red:box=1:boxcolor=black@0.7" -pix_fmt yuv420p -c:v libx264 -preset ultrafast -tune zerolatency -b:v 1200k -g 25 -f rtsp rtsp://localhost:8554/cam_patio_comidas
+    runOnInitRestart: true
+
+  # CAM 03: Parqueo Subterraneo (Optimizada con bajo consumo CPU)
+  cam_parqueo:
+    runOnInit: ffmpeg -re -f lavfi -i "color=c=#0d1b2a:size=1280x720:rate=25" -vf "drawgrid=width=80:height=80:thickness=1:color=cyan@0.15,drawbox=x='(w-200)/2+sin(t*2)*200':y='(h-120)/2+cos(t*2)*100':w=200:h=120:color=yellow@0.8:t=2,drawtext=text='PASEO ARANJUEZ - CAM 03 | PARQUEO SUBTERRANEO':x=30:y=30:fontsize=26:fontcolor=lightgreen:box=1:boxcolor=black@0.7,drawtext=text='OBJETOS EN MOVIMIENTO DETECTADOS':x=30:y=65:fontsize=20:fontcolor=orange:box=1:boxcolor=black@0.7,drawtext=text='REC ● %{localtime\:%Y-%m-%d %H\\\\\:%M\\\\\:%S}':x=30:y=95:fontsize=22:fontcolor=red:box=1:boxcolor=black@0.7" -pix_fmt yuv420p -c:v libx264 -preset ultrafast -tune zerolatency -b:v 1000k -g 25 -f rtsp rtsp://localhost:8554/cam_parqueo
+    runOnInitRestart: true
+
+  # CAM 04: Pasillo Central
+  cam_pasillo_central:
+    runOnInit: ffmpeg -re -f lavfi -i "testsrc2=size=1280x720:rate=25" -vf "drawtext=text='PASEO ARANJUEZ - CAM 04 | PASILLO CENTRAL':x=30:y=30:fontsize=26:fontcolor=white:box=1:boxcolor=black@0.7,drawtext=text='REC ● %{localtime\:%Y-%m-%d %H\\\\\:%M\\\\\:%S}':x=30:y=65:fontsize=22:fontcolor=red:box=1:boxcolor=black@0.7" -pix_fmt yuv420p -c:v libx264 -preset ultrafast -tune zerolatency -b:v 1200k -g 25 -f rtsp rtsp://localhost:8554/cam_pasillo_central
+    runOnInitRestart: true
+
+  # Comodin para camaras reales o dinamicas agregadas por RTSP
+  all_others:
